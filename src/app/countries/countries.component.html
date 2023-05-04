@@ -3,6 +3,7 @@
 <div *ngFor="let country of countries | async">
 
     <span>{{country.flag}}</span>
+    <span>{{country.name.common}}</span>
 </div>
 
 <!-- <button type="button" (click)="onClick()">

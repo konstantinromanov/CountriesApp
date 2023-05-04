@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CountriesService } from '../countries.service';
 import { Observable } from 'rxjs';
+import { Country } from '../models/country.model';
 
 @Component({
   selector: 'app-countries',
@@ -9,15 +10,16 @@ import { Observable } from 'rxjs';
 })
 export class CountriesComponent {
 
-  countries!: Observable<{ flag: string }[]>;
+  countries!: Observable<Country[]>;
 
   constructor(private countriesService: CountriesService){}
 
   ngOnInit(){
     //console.warn('Init', {});
-    // this.countriesService.getCountries().subscribe(data => {
-    //   //console.warn('Init', data);
-    // });
+    this.countriesService.getCountries().subscribe(data => {
+      data.forEach(el => console.log(el.flag));
+      // console.warn('Init', data.);
+    });
     
     this.countries = this.countriesService.getCountries();
   }
