@@ -6,6 +6,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { RouterModule } from '@angular/router';
 import { CountriesComponent } from './countries/countries.component';
 import { IndexComponent } from './index/index.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { IndexComponent } from './index/index.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: IndexComponent },
       { path: 'countries', component: CountriesComponent },

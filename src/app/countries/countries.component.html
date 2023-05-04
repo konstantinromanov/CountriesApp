@@ -1,1 +1,10 @@
 <p>countries works!</p>
+
+<div *ngFor="let country of countries | async">
+
+    <span>{{country.flag}}</span>
+</div>
+
+<!-- <button type="button" (click)="onClick()">
+    <span>Click</span>
+</button> -->
