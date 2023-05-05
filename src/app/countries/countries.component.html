@@ -2,8 +2,15 @@
 
 <div *ngFor="let country of countries | async">
 
-    <span>{{country.flag}}</span>
-    <span>{{country.name.common}}</span>
+    <!-- <span>{{country.currencies}}</span> -->
+    <p>{{country.name.common}}</p>
+    <ul>
+        <li *ngFor="let currency of country.currencies | keyvalue">
+          {{ currency.key }} - {{ currency.value.name }} ({{ currency.value.symbol }})
+        </li>
+      </ul>
+      <p>{{country.flags.png}}</p>
+      <p>{{country.maps.googleMaps}}</p>
 </div>
 
 <!-- <button type="button" (click)="onClick()">

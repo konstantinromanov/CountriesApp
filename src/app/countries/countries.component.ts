@@ -16,10 +16,10 @@ export class CountriesComponent {
 
   ngOnInit(){
     //console.warn('Init', {});
-    this.countriesService.getCountries().subscribe(data => {
-      data.forEach(el => console.log(el.flag));
-      // console.warn('Init', data.);
-    });
+    // this.countriesService.getCountries().subscribe(data => {
+    //   data.forEach(el => console.log(el.flag));
+    //   // console.warn('Init', data.);
+    // });
     
     this.countries = this.countriesService.getCountries();
   }

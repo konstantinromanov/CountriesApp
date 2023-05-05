@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Country } from './models/country.model';
+import { Observable, of } from 'rxjs';
+import { Country, Currencies, Currency, Language } from './models/country.model';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -13,55 +13,73 @@ export class CountriesService {
   countries!: Country[];
   constructor(private http: HttpClient) { }
 
-  // getCountries(): Observable<Country[]> {
-       
-  //   const result  = this.http.get<any[]>(this.apiUrl).pipe(
-  //     map(response => {
-  //       const countries = response.map((country) => { 
-  //         return {
-  //           flag: country.flag,
-  //           name: {
-  //             common: country.common,
-  //             official: country.official,
-  //             //nativeName: country.nativeName
-  //           }
-  //         }
-  //       });
-  //       this.countries = countries;
-  //       return countries;
-  //       }),
-  //       );
-        
-  //   return result;
-  // }
-
   getCountries(): Observable<Country[]> {
-    
-    const result  = this.http.get<any[]>(this.apiUrl).pipe(
-      map(response => {
-        const countries = response.map(({ flag, name: { common, official } }) => ({ flag, name: { common, official } }));
-        this.countries = countries;
-        return countries;
-        }));
         
-    return result;
-
-    // const result  = this.http.get<any[]>(this.apiUrl).pipe(
-    //   map(response => {
-    //     const countries = response.map((country) => { 
-    //       return {
-    //         flag: country.flag,
-    //         name: {
-    //           common: country.common,
-    //           official: country.official,
-    //           nativeName: country.nativeName
-    //         }
-    //       }
-    //     });
-    //     this.countries = countries;
-    //     return countries;
-    //     }));
-        
-    // return result;
+    if (this.countries) {      
+      return of(this.countries);
+    } else {      
+      const result = this.http.get<any[]>(this.apiUrl).pipe(
+        map(response => this.mapResponseToCountries(response)),
+        tap(countries => this.countries = countries)
+      );          
+       return result;
+    }    
   }
+
+  private mapResponseToCountries(response: any[]): Country[] {
+
+    const countries = response.map((country) => {
+      
+      const languages = country.languages;
+      const formattedLanguages: Language = {};
+
+      for (const key in languages) {
+        const language = languages[key];
+        formattedLanguages[key] = language;
+      }
+                
+      const currencies = country.currencies;
+      const formattedCurrencies: Currencies = {};
+
+      for (const key in currencies) {
+        const currency = currencies[key];
+        formattedCurrencies[key] = {
+          name: currency.name as string,
+          symbol: currency.symbol as string
+        };
+      }
+
+      return {
+        flag: country.flag,
+        name: {
+          common: country.name.common,
+          official: country.name.official,               
+        },
+        currencies: currencies,
+        capital: country.capital,
+        population: country.population,
+        continents: country.continents,
+        flags: country.flags,
+        area: country.area,
+        languages: languages,
+        region: country.region,
+        subregion: country.subregion,
+        maps: {
+          googleMaps: country.maps.googleMaps,
+          openStreetMaps: country.maps.openStreetMaps
+        },
+        latlng: country.latling,
+        landlocked: country.landlocked,
+        borders: country.borders,
+        car: {
+          signs: country.car.signs,
+          side: country.car.side
+        },
+        capitalInfo: country.capitalInfo,    
+
+      };
+    });
+   
+    return countries;
+  }  
 }

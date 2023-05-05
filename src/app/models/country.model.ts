@@ -8,30 +8,42 @@ export interface Country {
     // independent: boolean;
     // status: string;
     // unMember: boolean;
-    // currencies: Currencies;
+    currencies: Currencies;
     // idd: string;
-    // capital: string[];
+    capital: string[];
     // altSpelling: string[];
-    // region: string;
-    // subregion: string;
-    // languages: Language;
+    region: string;
+    subregion: string;
+    languages: Language;
     // translations: Translations;
-    // latling: string[];
-    // landlocked: boolean;
-    // area: number;
+    latlng: number[];
+    landlocked: boolean;
+    borders: string[];
+    area: number;
     // demonyms: Demonyms;
-     flag: string;
-    // maps: Map;
-    // population: number;
+    flag: string;
+    maps: Map;
+    population: number;
     // //gini: Gini;
     // fifa: string;
     // //car: 
-    // continents: string[];
-    // flags: Flag;
+     continents: string[];
+     flags: Flag;
     // startOfWeek: string;
+    car: Car;
+    capitalInfo: CapitalInfo;
+
 }
 
-export interface Flag{
+export interface CapitalInfo {
+    latlng: number[];
+}
+export interface Car {
+    signs: string[];
+    side: string;
+}
+
+export interface Flag {
     png: string;
     svg: string;
 }
