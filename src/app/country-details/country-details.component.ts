@@ -22,10 +22,7 @@ export class CountryDetailsComponent {
 
     const routeParams = this.route.snapshot.paramMap;
     const countryIdFromRoute = routeParams.get('cca2') as string;
-    const country = this.countriesService.getCountry(countryIdFromRoute);
-    this.country$ = country;
-    // if (country !== undefined) {
-    //   this.country = country;
-    // }   
+    const country = this.countriesService.getCountryByCode(countryIdFromRoute);
+    this.country$ = country;    
   }
 }

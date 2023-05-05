@@ -8,7 +8,7 @@ import { CountriesComponent } from './countries/countries.component';
 import { IndexComponent } from './index/index.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CountryDetailsComponent } from './country-details/country-details.component';
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { CountryDetailsComponent } from './country-details/country-details.compo
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot([
       { path: '', component: IndexComponent },
       { path: 'countries', component: CountriesComponent },

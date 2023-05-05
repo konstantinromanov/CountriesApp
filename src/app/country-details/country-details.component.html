@@ -7,49 +7,51 @@
 <div *ngIf="country$ | async as country">
     <h1>{{ country.name.common }}</h1>
 
-<img [src]="country.flags.png" alt="{{ country.flags.alt == '' ? country.name.common : country.flags.alt }} Flag">
+    <img [src]="country.flags.png" alt="{{ country.flags.alt == '' ? country.name.common : country.flags.alt }} Flag">
 
-<dl>
-  <dt>Capital:</dt>
-  <dd>{{ country.capital[0] }}</dd>
-  
-  <dt>Region:</dt>
-  <dd>{{ country.region }}</dd>
-  
-  <dt>Subregion:</dt>
-  <dd>{{ country.subregion }}</dd>
-  
-  <dt>Languages:</dt>
-  <dd>
-    <ul *ngIf="country.languages">
-        <li *ngFor="let language of country.languages | keyvalue">
-            <!-- {{ language.key }}:  -->{{ language.value }}
-          </li>
-          
-    </ul>
-  </dd>
+    <dl>
+    <dt>Capital:</dt>
+    <dd>{{ country.capital[0] }}</dd>
+    
+    <dt>Region:</dt>
+    <dd>{{ country.region }}</dd>
+    
+    <dt>Subregion:</dt>
+    <dd>{{ country.subregion }}</dd>
+    
+    <dt>Languages:</dt>
+    <dd>
+        <ul *ngIf="country.languages">
+            <li *ngFor="let language of country.languages | keyvalue">
+                <!-- {{ language.key }}:  -->{{ language.value }}
+            </li>
+            
+        </ul>
+    </dd>
 
-  <dt>Population:</dt>
-  <dd>{{ country.population }}</dd>
-  
-  <dt>Currencies:</dt>
-  <dd>
-    <ul>
-      <li *ngFor="let currency of country.currencies | keyvalue">
-        {{ currency.value.name }} ({{ currency.value.symbol }})
-      </li>
-    </ul>
-  </dd>
-  
-  <dt>Area:</dt>
-  <dd>{{ country.area }} km²</dd>
-  
-  <dt>Borders:</dt>
-  <dd>
-    <ul>
-      <li *ngFor="let border of country.borders">{{ border }}</li>
-    </ul>
-  </dd>
-</dl>
+    <dt>Population:</dt>
+    <dd>{{ country.population }}</dd>
+    
+    <dt>Currencies:</dt>
+    <dd>
+        <ul>
+        <li *ngFor="let currency of country.currencies | keyvalue">
+            {{ currency.value.name }} ({{ currency.value.symbol }})
+        </li>
+        </ul>
+    </dd>
+    
+    <dt>Area:</dt>
+    <dd>{{ country.area }} km²</dd>
+    
+    <dt>Borders:</dt>
+    <dd>
+        <ul>
+        <li *ngFor="let border of country.borders">{{ border }}</li>
+        </ul>
+    </dd>
+    </dl>
+
+   
 </div>
 

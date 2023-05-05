@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CountriesService } from '../countries.service';
 import { Observable } from 'rxjs';
 import { Country } from '../models/country.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-countries',
@@ -10,24 +11,22 @@ import { Country } from '../models/country.model';
 })
 export class CountriesComponent {
 
-  countries!: Observable<Country[]>;
+  searchTerm!: string;
+  countries$!: Observable<Country[]>;
 
-  constructor(private countriesService: CountriesService){}
+  constructor(private countriesService: CountriesService, private activatedRoute: ActivatedRoute){}
 
-  ngOnInit(){
-    //console.warn('Init', {});
-    // this.countriesService.getCountries().subscribe(data => {
-    //   data.forEach(el => console.log(el.flag));
-    //   // console.warn('Init', data.);
-    // });
-    
-    this.countries = this.countriesService.getCountries();
+  ngOnInit(){   
+    this.searchTerm = this.countriesService.searchTerm;
+    this.countries$ = this.countriesService.getCountries();
   }
 
-  onClick(){
-    
-    //this.countries = this.countriesService.getCountries();
+  filterByName(countryName: string): void {
 
-    //console.warn('Init', this.countries);
+    this.searchTerm = countryName;
+
+    if (countryName.trim().length > 0 || countryName.trim().length == 0) {            
+      this.countries$ = this.countriesService.getCountriesBySearch(countryName);
+    }       
   }
 }

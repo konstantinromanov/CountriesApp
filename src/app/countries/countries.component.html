@@ -1,6 +1,13 @@
-<p>countries works!</p>
 
-<div *ngFor="let country of countries | async">
+<!-- country-list.component.html -->
+
+<input type="text" class="form-control" placeholder="Filter by country name" 
+    [(ngModel)]="searchTerm"
+    (keyup)="filterByName(searchTerm)"
+    [value]="searchTerm">
+
+
+<div *ngFor="let country of countries$ | async">
 
     <!-- <span>{{country.currencies}}</span> -->
     <p>

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Country, Currencies, Currency, Language } from './models/country.model';
-import { map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +11,30 @@ export class CountriesService {
 
   apiUrl = "https://restcountries.com/v3.1/all";
   apiUrlByCode = "https://restcountries.com/v3.1/alpha/";
-
+  apiUrlByName = "https://restcountries.com/v3.1/name/";
+  
   countries!: Country[];
+  searchTerm: string = "";
+
   constructor(private http: HttpClient) { }
 
   getCountries(): Observable<Country[]> {
         
+    this.searchTerm = "";
+
     if (this.countries) {      
       return of(this.countries);
     } else {      
       const result = this.http.get<any[]>(this.apiUrl).pipe(
         map(response => this.mapResponseToCountries(response)),
         tap(countries => this.countries = countries)
-      );          
-       return result;
+      );
+
+      return result;
     }    
   }
 
-  getCountry(cca2: string): Observable<Country> {
+  getCountryByCode(cca2: string): Observable<Country> {
 
     const cachedCountry = this.countries?.find(c => c.cca2 === cca2);
   
@@ -40,6 +46,31 @@ export class CountriesService {
       );
     }
   } 
+
+  getCountriesBySearch(countryName: string): Observable<Country[]> {
+
+    countryName = countryName.trim();
+    this.searchTerm = countryName;
+
+    if(countryName.length === 0) {  
+
+      return this.http.get<any[]>(this.apiUrl).pipe(
+        map(response => this.mapResponseToCountries(response)),
+        tap(countries => this.countries = countries)
+      );    
+    }
+
+    const result = this.http.get<any[]>(this.apiUrlByName + countryName).pipe(
+      map(response => this.mapResponseToCountries(response)),
+      tap(countries => this.countries = countries),
+      catchError(error => {
+        console.error('API Error:', error);
+        return of([]); // return an empty array when there is an error
+      })
+    );          
+    
+    return result;      
+  }
 
   private mapResponseToCountries(response: any[]): Country[] {
    
