@@ -10,6 +10,8 @@ import { map, tap } from 'rxjs/operators';
 export class CountriesService {
 
   apiUrl = "https://restcountries.com/v3.1/all";
+  apiUrlByCode = "https://restcountries.com/v3.1/alpha/";
+
   countries!: Country[];
   constructor(private http: HttpClient) { }
 
@@ -26,8 +28,21 @@ export class CountriesService {
     }    
   }
 
-  private mapResponseToCountries(response: any[]): Country[] {
+  getCountry(cca2: string): Observable<Country> {
 
+    const cachedCountry = this.countries?.find(c => c.cca2 === cca2);
+  
+    if (cachedCountry) {
+      return of(cachedCountry);
+    } else {
+      return this.http.get<any[]>(`${this.apiUrlByCode}/${cca2}`).pipe(
+        map(response => this.mapResponseToCountries(response)[0])
+      );
+    }
+  } 
+
+  private mapResponseToCountries(response: any[]): Country[] {
+   
     const countries = response.map((country) => {
       
       const languages = country.languages;
@@ -46,9 +61,9 @@ export class CountriesService {
         formattedCurrencies[key] = {
           name: currency.name as string,
           symbol: currency.symbol as string
-        };
+        }
       }
-
+      
       return {
         flag: country.flag,
         name: {
@@ -76,6 +91,20 @@ export class CountriesService {
           side: country.car.side
         },
         capitalInfo: country.capitalInfo,    
+        tld: country.tld,
+        cca2: country.cca2,
+        ccn3: country.ccn3,
+        cca3: country.cca3,
+        cioc: country.cioc,
+        idd: {
+          root: country.idd.root,
+          suffixes: country.idd.suffixes
+        },
+        independent: country.independent,
+        status: country.status,
+        unMember: country.unMember,       
+        fifa: country.fifa,
+        startOfWeek: country.startOfWeek,
 
       };
     });

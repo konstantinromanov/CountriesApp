@@ -3,14 +3,20 @@
 <div *ngFor="let country of countries | async">
 
     <!-- <span>{{country.currencies}}</span> -->
-    <p>{{country.name.common}}</p>
-    <ul>
+    <p>
+        <a 
+            [title]="country.name.common + 'details'"
+            [routerLink]="['/countries', country.cca2]">
+            {{country.name.common}}
+        </a>
+    </p>
+    <!-- <ul>
         <li *ngFor="let currency of country.currencies | keyvalue">
           {{ currency.key }} - {{ currency.value.name }} ({{ currency.value.symbol }})
         </li>
       </ul>
       <p>{{country.flags.png}}</p>
-      <p>{{country.maps.googleMaps}}</p>
+      <p>{{country.maps.googleMaps}}</p> -->
 </div>
 
 <!-- <button type="button" (click)="onClick()">

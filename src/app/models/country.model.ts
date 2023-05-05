@@ -1,43 +1,43 @@
 
 export interface Country {
     name: Names;
-    //tld: string[];
-    // cca2: string;
-    // ccn3: string;
-    // cca3: string;
-    // independent: boolean;
-    // status: string;
-    // unMember: boolean;
+    tld: string[];
+    cca2: string;
+    ccn3: string;
+    cca3: string;
+    independent: boolean;
+    status: string;
+    unMember: boolean;
     currencies: Currencies;
-    // idd: string;
-    capital: string[];
-    // altSpelling: string[];
+    idd: Idd;
+    capital: string[];   
     region: string;
     subregion: string;
-    languages: Language;
-    // translations: Translations;
+    languages: Language;    
     latlng: number[];
     landlocked: boolean;
     borders: string[];
-    area: number;
-    // demonyms: Demonyms;
+    area: number;    
     flag: string;
     maps: Map;
-    population: number;
-    // //gini: Gini;
-    // fifa: string;
-    // //car: 
-     continents: string[];
-     flags: Flag;
-    // startOfWeek: string;
+    population: number;   
+    fifa: string;    
+    continents: string[];
+    flags: Flag;
+    startOfWeek: string;
     car: Car;
     capitalInfo: CapitalInfo;
+}
 
+export interface Idd {
+    root: string;
+    suffixes: string[];
 }
 
 export interface CapitalInfo {
     latlng: number[];
 }
+
 export interface Car {
     signs: string[];
     side: string;
@@ -46,6 +46,7 @@ export interface Car {
 export interface Flag {
     png: string;
     svg: string;
+    alt: string;
 }
 export interface Gini {
     [key: string]: number;
@@ -109,7 +110,8 @@ export interface Translation {
 }
 
 export interface Demonyms {
-    [key: string]: Demonym;
+    eng: Demonym;
+    fra: Demonym;
 }
 
 export interface Demonym {
