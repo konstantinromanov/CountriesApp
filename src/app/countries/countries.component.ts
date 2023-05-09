@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Country } from '../models/country.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { faCoffee, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-countries',
@@ -16,6 +17,10 @@ export class CountriesComponent {
   filterTermRegion: string = "";
   countries$!: Observable<Country[]>;
   filter_form: FormGroup;
+  faCoffee = faCoffee;
+  faCaretUp = faCaretUp;
+  faCaretDown = faCaretDown;
+  isAscending = true;
   
   constructor(
     private countriesService: CountriesService, 
@@ -45,6 +50,18 @@ export class CountriesComponent {
     this.filterTermRegion = this.countriesService.lastRegionTerm;
     this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion);  
     
+  }
+
+  sortByName(){
+
+    if(this.isAscending){
+      this.countriesService.sortByNameAscending();
+    } else {
+      this.countriesService.sortByNameDescending();
+    }
+    
+    this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion);  
+    this.isAscending = this.countriesService.isAscending;
   }
 
   filterByName(countryName: string): void {

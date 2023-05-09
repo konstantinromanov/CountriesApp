@@ -16,7 +16,7 @@ export class CountriesService {
   countries!: Country[];
   lastSearchTerm: string = "";
   lastRegionTerm: string = "";
-  guids: string[] = [];
+  isAscending = true;
 
   constructor(private http: HttpClient) { }
 
@@ -30,18 +30,28 @@ export class CountriesService {
       
       const result = this.http.get<any[]>(this.apiUrl).pipe(
         map(response => this.mapResponseToCountries(response)),
-        tap(countries => this.countries = countries)
+        tap(countries => this.countries = countries.sort((a, b) => a.name.common.localeCompare(b.name.common)))
       );
 
       return result;
     }    
   }
 
+  sortByNameAscending(): void {
+    this.countries.sort((a, b) => a.name.common < b.name.common ? -1 : 1);
+    this.isAscending = false;    
+  }
+
+  sortByNameDescending(): void {
+    this.countries.sort((a, b) => a.name.common > b.name.common ? -1 : 1);
+    this.isAscending = true;    
+  }
+
   getCountriesBySearch(countryName: string, countryRegion: string): Observable<Country[]> {
     
     this.lastSearchTerm = countryName.trim().toLowerCase();
     this.lastRegionTerm = countryRegion.trim().toLowerCase();
-    
+
     const result = this.getCountries().pipe(
       map(countries => countries.filter(country =>
         (country.name.common.toLowerCase().includes(this.lastSearchTerm)

@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CountryDetailsComponent } from './country-details/country-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+// import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
+    FontAwesomeModule,
     RouterModule.forRoot([
       { path: '', component: IndexComponent },
       { path: 'countries', component: CountriesComponent },
