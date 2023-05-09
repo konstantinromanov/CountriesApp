@@ -14,17 +14,20 @@ export class CountriesService {
   apiUrlByName = "https://restcountries.com/v3.1/name/";
   
   countries!: Country[];
-  searchTerm: string = "";
+  lastSearchTerm: string = "";
+
+  guids: string[] = [];
 
   constructor(private http: HttpClient) { }
 
   getCountries(): Observable<Country[]> {
         
-    this.searchTerm = "";
+    if (this.countries) {     
 
-    if (this.countries) {      
       return of(this.countries);
+
     } else {      
+      
       const result = this.http.get<any[]>(this.apiUrl).pipe(
         map(response => this.mapResponseToCountries(response)),
         tap(countries => this.countries = countries)
@@ -32,6 +35,20 @@ export class CountriesService {
 
       return result;
     }    
+  }
+
+  getCountriesBySearch(countryName: string): Observable<Country[]> {
+    
+    this.lastSearchTerm = countryName.trim().toLowerCase();
+
+    const result = this.getCountries().pipe(
+      map(countries => countries.filter(country =>
+        country.name.common.toLowerCase().includes(this.lastSearchTerm) ||
+        country.name.official.toLowerCase().includes(this.lastSearchTerm)
+      ))
+    );
+
+    return result;
   }
 
   getCountryByCode(cca2: string): Observable<Country> {
@@ -47,30 +64,31 @@ export class CountriesService {
     }
   } 
 
-  getCountriesBySearch(countryName: string): Observable<Country[]> {
 
-    countryName = countryName.trim();
-    this.searchTerm = countryName;
+  // getCountriesBySearch(countryName: string): Observable<Country[]> {
 
-    if(countryName.length === 0) {  
+  //   countryName = countryName.trim();
+  //   this.searchTerm = countryName;
 
-      return this.http.get<any[]>(this.apiUrl).pipe(
-        map(response => this.mapResponseToCountries(response)),
-        tap(countries => this.countries = countries)
-      );    
-    }
+  //   if(countryName.length === 0) {  
 
-    const result = this.http.get<any[]>(this.apiUrlByName + countryName).pipe(
-      map(response => this.mapResponseToCountries(response)),
-      tap(countries => this.countries = countries),
-      catchError(error => {
-        console.error('API Error:', error);
-        return of([]); // return an empty array when there is an error
-      })
-    );          
+  //     return this.http.get<any[]>(this.apiUrl).pipe(
+  //       map(response => this.mapResponseToCountries(response)),
+  //       tap(countries => this.countries = countries)
+  //     );    
+  //   }
+
+  //   const result = this.http.get<any[]>(this.apiUrlByName + countryName).pipe(
+  //     map(response => this.mapResponseToCountries(response)),
+  //     tap(countries => this.countries = countries),
+  //     catchError(error => {
+  //       console.error('API Error:', error);
+  //       return of([]);
+  //     })
+  //   );          
     
-    return result;      
-  }
+  //   return result;      
+  // }
 
   private mapResponseToCountries(response: any[]): Country[] {
    

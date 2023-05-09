@@ -17,16 +17,13 @@ export class CountriesComponent {
   constructor(private countriesService: CountriesService, private activatedRoute: ActivatedRoute){}
 
   ngOnInit(){   
-    this.searchTerm = this.countriesService.searchTerm;
-    this.countries$ = this.countriesService.getCountries();
+    this.searchTerm = this.countriesService.lastSearchTerm;  
+    this.filterByName(this.searchTerm);
   }
 
   filterByName(countryName: string): void {
 
     this.searchTerm = countryName;
-
-    if (countryName.trim().length > 0 || countryName.trim().length == 0) {            
-      this.countries$ = this.countriesService.getCountriesBySearch(countryName);
-    }       
-  }
+    this.countries$ = this.countriesService.getCountriesBySearch(countryName);     
+  } 
 }
