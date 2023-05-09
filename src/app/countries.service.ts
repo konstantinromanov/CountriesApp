@@ -15,7 +15,7 @@ export class CountriesService {
   
   countries!: Country[];
   lastSearchTerm: string = "";
-
+  lastRegionTerm: string = "";
   guids: string[] = [];
 
   constructor(private http: HttpClient) { }
@@ -37,14 +37,16 @@ export class CountriesService {
     }    
   }
 
-  getCountriesBySearch(countryName: string): Observable<Country[]> {
+  getCountriesBySearch(countryName: string, countryRegion: string): Observable<Country[]> {
     
     this.lastSearchTerm = countryName.trim().toLowerCase();
-
+    this.lastRegionTerm = countryRegion.trim().toLowerCase();
+    
     const result = this.getCountries().pipe(
       map(countries => countries.filter(country =>
-        country.name.common.toLowerCase().includes(this.lastSearchTerm) ||
-        country.name.official.toLowerCase().includes(this.lastSearchTerm)
+        (country.name.common.toLowerCase().includes(this.lastSearchTerm)
+        || country.name.official.toLowerCase().includes(this.lastSearchTerm))
+        && country.region.toLowerCase().includes(this.lastRegionTerm)
       ))
     );
 
@@ -63,32 +65,6 @@ export class CountriesService {
       );
     }
   } 
-
-
-  // getCountriesBySearch(countryName: string): Observable<Country[]> {
-
-  //   countryName = countryName.trim();
-  //   this.searchTerm = countryName;
-
-  //   if(countryName.length === 0) {  
-
-  //     return this.http.get<any[]>(this.apiUrl).pipe(
-  //       map(response => this.mapResponseToCountries(response)),
-  //       tap(countries => this.countries = countries)
-  //     );    
-  //   }
-
-  //   const result = this.http.get<any[]>(this.apiUrlByName + countryName).pipe(
-  //     map(response => this.mapResponseToCountries(response)),
-  //     tap(countries => this.countries = countries),
-  //     catchError(error => {
-  //       console.error('API Error:', error);
-  //       return of([]);
-  //     })
-  //   );          
-    
-  //   return result;      
-  // }
 
   private mapResponseToCountries(response: any[]): Country[] {
    

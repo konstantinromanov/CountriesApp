@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { CountriesService } from '../countries.service';
 import { Observable } from 'rxjs';
 import { Country } from '../models/country.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-countries',
@@ -11,19 +12,52 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CountriesComponent {
 
-  searchTerm!: string;
+  filterTermName!: string;
+  filterTermRegion: string = "";
   countries$!: Observable<Country[]>;
-
-  constructor(private countriesService: CountriesService, private activatedRoute: ActivatedRoute){}
+  filter_form: FormGroup;
+  
+  constructor(
+    private countriesService: CountriesService, 
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private fb: FormBuilder){
+      this.filter_form = fb.group({
+        'countryName': [
+          null, Validators.compose(
+            [
+              Validators.maxLength(15),
+              Validators.pattern('^[a-zA-Z ]*$')
+            ])
+        ],     
+        'countryRegion': [
+          null, Validators.compose(
+            [
+              Validators.maxLength(15),
+              Validators.pattern('^[a-zA-Z ]*$')
+            ])
+        ],        
+      });
+    }
 
   ngOnInit(){   
-    this.searchTerm = this.countriesService.lastSearchTerm;  
-    this.filterByName(this.searchTerm);
+    this.filterTermName = this.countriesService.lastSearchTerm;  
+    this.filterTermRegion = this.countriesService.lastRegionTerm;
+    this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion);  
+    
   }
 
   filterByName(countryName: string): void {
+    this.filterTermName = countryName;
+    this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion);     
+  }
 
-    this.searchTerm = countryName;
-    this.countries$ = this.countriesService.getCountriesBySearch(countryName);     
-  } 
+  filterByRegion(countryRegion: string){
+    this.filterTermRegion = countryRegion;
+    this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion);   
+  }
+
+  goToDetails(countryCode: string){
+    this.router.navigate(['/countries', countryCode]);
+  }
 }

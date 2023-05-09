@@ -1,31 +1,78 @@
 
-<!-- country-list.component.html -->
-
-<input type="text" class="form-control" placeholder="Filter by country name" 
-    [(ngModel)]="searchTerm"
-    (keyup)="filterByName(searchTerm)"
-    [value]="searchTerm">
-
-
-<div *ngFor="let country of countries$ | async">
-
-    <!-- <span>{{country.currencies}}</span> -->
-    <p>
-        <a 
-            [title]="country.name.common + 'details'"
-            [routerLink]="['/countries', country.cca2]">
-            {{country.name.common}}
-        </a>
-    </p>
-    <!-- <ul>
-        <li *ngFor="let currency of country.currencies | keyvalue">
-          {{ currency.key }} - {{ currency.value.name }} ({{ currency.value.symbol }})
-        </li>
-      </ul>
-      <p>{{country.flags.png}}</p>
-      <p>{{country.maps.googleMaps}}</p> -->
+<div class="container">   
+    <div [formGroup]="filter_form">
+        <div class="row mt-3">            
+            <div class="col-3">                
+                <div class="form-group">                    
+                    <input type="text" class="form-control" placeholder="Filter by country name" 
+                        formControlName="countryName"
+                        [(ngModel)]="filterTermName"
+                        (keyup)="filterByName(filterTermName)"
+                        [value]="filterTermName">
+                    <span class="text-danger" *ngIf="filter_form.controls['countryName'].hasError('maxlength') 
+                        && (filter_form.controls['countryName'].dirty 
+                        || filter_form.controls['countryName'].touched)">
+                            Max length is 15 chars
+                    </span>
+                    <span class="text-danger" *ngIf="filter_form.controls['countryName'].hasError('pattern') 
+                        && (filter_form.controls['countryName'].dirty 
+                        || filter_form.controls['countryName'].touched)">
+                            Please enter valid filter query
+                    </span>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">                    
+                    <input type="text" class="form-control" placeholder="Filter by country region"
+                    formControlName="countryRegion"
+                    [(ngModel)]="filterTermRegion"
+                    (keyup)="filterByRegion(filterTermRegion)"
+                    [value]="filterTermRegion">
+                    <span class="text-danger" *ngIf="filter_form.controls['countryRegion'].hasError('maxlength') 
+                        && (filter_form.controls['countryRegion'].dirty 
+                        || filter_form.controls['countryRegion'].touched)">
+                            Max length is 15 chars
+                    </span>
+                    <span class="text-danger" *ngIf="filter_form.controls['countryRegion'].hasError('pattern') 
+                        && (filter_form.controls['countryRegion'].dirty 
+                        || filter_form.controls['countryRegion'].touched)">
+                            Please enter valid filter query
+                    </span>
+                </div>    
+            </div>            
+        </div>       
+    </div>
 </div>
-
-<!-- <button type="button" (click)="onClick()">
-    <span>Click</span>
-</button> -->
+   
+<div class="container">
+    <table class="table table-hover mt-3">
+        <thead class="">
+            <tr class="">
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Region</th>
+                <th scope="col">Subregion</th>
+                <th scope="col">Capital</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let country of countries$ | async; let i = index">
+            <tr (click)="goToDetails(country.cca2)">
+                <th scope="row">
+                    {{i+1}}
+                </th>
+                <td>
+                    {{country.name.common}}                    
+                </td>
+                <td>
+                    {{country.region}}
+                </td>
+                <td>
+                    {{country.subregion}}
+                </td>
+                <td>
+                    {{country.capital}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

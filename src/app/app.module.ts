@@ -8,7 +8,8 @@ import { CountriesComponent } from './countries/countries.component';
 import { IndexComponent } from './index/index.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CountryDetailsComponent } from './country-details/country-details.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
     RouterModule.forRoot([
       { path: '', component: IndexComponent },
       { path: 'countries', component: CountriesComponent },
@@ -31,6 +34,6 @@ import { FormsModule } from '@angular/forms';
     ])
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
