@@ -2,10 +2,10 @@
 <div class="container">   
     <div [formGroup]="filter_form">
         <div class="row mt-3"> 
-            <div class="col-10">
+            <div class="col-lg-10">
                 <div class="row">
-                    <div class="col-3">                
-                        <div class="form-group">                    
+                    <div class="col-md-6 col-lg-3">                
+                        <div class="form-group my-2">                    
                             <input type="search" class="form-control" placeholder="Filter by name" 
                                 formControlName="countryName"                        
                                 (keyup)="filterByName(filter_form.get('countryName')?.value)"
@@ -23,8 +23,8 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-3">
-                        <div class="form-group">                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="form-group my-2">                    
                             <input type="search" class="form-control" placeholder="Filter by region"
                             formControlName="countryRegion"                    
                             (keyup)="filterByRegion(filter_form.get('countryRegion')?.value)"
@@ -42,8 +42,8 @@
                             </span>
                         </div>    
                     </div>
-                    <div class="col-3">
-                        <div class="form-group">                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="form-group  my-2">                    
                             <input type="search" class="form-control" placeholder="Filter by subregion"
                             formControlName="countrySubRegion"                    
                             (keyup)="filterBySubRegion(filter_form.get('countrySubRegion')?.value)"
@@ -61,8 +61,8 @@
                             </span>
                         </div>    
                     </div>   
-                    <div class="col-3">
-                        <div class="form-group">                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="form-group my-2">                    
                             <input type="search" class="form-control" placeholder="Filter by continent"
                             formControlName="countryContinent"                    
                             (keyup)="filterByContinent(filter_form.get('countryContinent')?.value)"
@@ -82,7 +82,7 @@
                     </div> 
                 </div>
             </div>    
-            <div class="col-2">
+            <div class="col-md-3 col-lg-2 my-2">
                 <button class="btn btn-secondary text-nowrap w-100" (click)="clearAllFilters()">Clear all</button>
             </div>
         </div>       
