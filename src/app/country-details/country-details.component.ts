@@ -25,4 +25,36 @@ export class CountryDetailsComponent {
     const country = this.countriesService.getCountryByCode(countryIdFromRoute);
     this.country$ = country;    
   }
+
+  currenciesToString(currencies: { [key: string]: any }): string {
+
+    const result = Object.keys(currencies).map(key => {
+
+      const currency = currencies[key];
+
+      return `${currency.name} (${currency.symbol || key})`;
+      
+    }).join(', ');
+
+    return result;
+  }
+
+  languagesToString(languages: { [key: string]: any }): string {
+
+    const result = Object.keys(languages).map(key => {
+      const language = languages[key];
+      return `${language}`;      
+    }).join(', ');
+
+    return result;
+  }
+
+  handleIddClick() {
+    this.country$.subscribe(country => {
+      const suffixes = country.idd.suffixes.join(", ");
+      const message = `root: ${country.idd.root}\n suffixes: ${suffixes}`;
+      alert(message);
+    });
+  }
+  
 }

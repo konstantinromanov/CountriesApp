@@ -1,57 +1,118 @@
-<!-- <h2>Country Details</h2>
 
-<div *ngIf="country">
-    {{country.name.common}}
-</div> -->
 
 <div *ngIf="country$ | async as country">
-    <h1>{{ country.name.common }}</h1>
 
-    <img [src]="country.flags.png" alt="{{ country.flags.alt == '' ? country.name.common : country.flags.alt }} Flag">
+    <div class="container">
+        <h1 class="mb-3">{{ country.name.common }}</h1>
+        <div class="row">
+            <div class="col-md-6 col-lg-3">
+                <dl>
+                    <dt>Official name:</dt>
+                    <dd>{{ country.name.official }}</dd>
 
-    <dl>
-    <dt>Capital:</dt>
-    <dd>{{ country.capital[0] }}</dd>
-    
-    <dt>Region:</dt>
-    <dd>{{ country.region }}</dd>
-    
-    <dt>Subregion:</dt>
-    <dd>{{ country.subregion }}</dd>
-    
-    <dt>Languages:</dt>
-    <dd>
-        <ul *ngIf="country.languages">
-            <li *ngFor="let language of country.languages | keyvalue">
-                <!-- {{ language.key }}:  -->{{ language.value }}
-            </li>
-            
-        </ul>
-    </dd>
+                    <dt>Capital:</dt>
+                    <dd>{{ country.capital[0] }}</dd>
+                    
+                    <dt>Region:</dt>
+                    <dd>{{ country.region }}</dd>
+                    
+                    <dt>Subregion:</dt>
+                    <dd>{{ country.subregion }}</dd>
 
-    <dt>Population:</dt>
-    <dd>{{ country.population }}</dd>
-    
-    <dt>Currencies:</dt>
-    <dd>
-        <ul>
-        <li *ngFor="let currency of country.currencies | keyvalue">
-            {{ currency.value.name }} ({{ currency.value.symbol }})
-        </li>
-        </ul>
-    </dd>
-    
-    <dt>Area:</dt>
-    <dd>{{ country.area }} km²</dd>
-    
-    <dt>Borders:</dt>
-    <dd>
-        <ul>
-        <li *ngFor="let border of country.borders">{{ border }}</li>
-        </ul>
-    </dd>
-    </dl>
+                    <dt>Continents:</dt>
+                    <dd>
+                        {{ country.continents.join(", ") }}                        
+                    </dd>
 
-   
+                    <dt>Area:</dt>
+                    <dd>{{ country.area }} km²</dd>
+                                    
+                    <dt>Population:</dt>
+                    <dd>
+                        {{ country.population }}
+                    </dd>
+
+                    <dt>Landlocked:</dt>
+                    <dd>
+                        {{ country.landlocked ? "Yes" : "No" }}                        
+                    </dd>
+
+                    <dt>Languages:</dt>
+                    <dd>
+                        {{ languagesToString(country.languages) }}                        
+                    </dd>
+
+                    <dt>Currencies:</dt>
+                    <dd>
+                        {{ currenciesToString(country.currencies) }}                        
+                    </dd>
+                           
+                </dl>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <dl>
+                           
+                    <dt>CCA2:</dt>
+                    <dd>
+                        {{ country.cca2 }}                        
+                    </dd>
+
+                    <dt>Country Domain Registration:</dt>
+                    <dd>
+                        {{ country.tld.join(", ") }}                        
+                    </dd>
+
+                    <dt>Car Information:</dt>
+                    <dd>
+                        signs: {{ country.car.signs.join(", ") }} 
+                        <br>
+                        side: {{ country.car.side === "right" ? "right-hand" : "left-hand" }}                    
+                    </dd>
+                    
+                    <dt>Borders:</dt>
+                    <dd>
+                        {{ country.borders != undefined ? country.borders.join(", ") : "No borders" }}                       
+                    </dd>
+
+                    <dt>International Direct Dialing:</dt>
+                    <dd class="text-wrap text-break">
+                        root: 
+                        {{ country.idd.root }}
+                        <br>
+                        suffixes: 
+                        <span class="suffixes" (click)="handleIddClick()" *ngIf="country.idd.suffixes.length >5">
+                            {{ country.idd.suffixes.slice(0,5).join(", ") }}, <a>...</a>
+                        </span>
+                        <span *ngIf="country.idd.suffixes.length <=5">
+                            {{ country.idd.suffixes.join(", ") }}
+                        </span>
+                    </dd>
+                    
+                    <dt>Start of week:</dt>
+                    <dd>
+                        {{ country.startOfWeek }}
+                    </dd>
+
+                    <dt>Latitude:</dt>
+                    <dd>
+                        {{ country.latlng[0] }}
+                    </dd>
+
+                    <dt>Longitude:</dt>
+                    <dd>
+                        {{ country.latlng[1] }}
+                    </dd>
+
+                    <dt>Google Maps:</dt>
+                    <dd>
+                        <a target="_blank" [href]="country.maps.googleMaps">{{ country.maps.googleMaps }}</a>
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-md-12 col-lg-6 mt-3 text-center">
+                <img class="shadow" [src]="country.flags.png" alt="{{ country.flags.alt == '' ? country.name.common : country.flags.alt }} Flag">
+            </div>
+        </div>
+    </div>    
 </div>
 

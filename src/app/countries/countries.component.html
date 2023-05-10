@@ -1,83 +1,91 @@
 
 <div class="container">   
     <div [formGroup]="filter_form">
-        <div class="row mt-3">            
-            <div class="col-3">                
-                <div class="form-group">                    
-                    <input type="search" class="form-control" placeholder="Filter by country name" 
-                        formControlName="countryName"                        
-                        (keyup)="filterByName(filter_form.get('countryName')?.value)"
-                        [value]="filter_form.get('countryName')?.value"
-                        (search)="filterByName(filter_form.get('countryName')?.value)">                   
-                    <span class="text-danger" *ngIf="filter_form.controls['countryName'].hasError('maxlength') 
-                        && (filter_form.controls['countryName'].dirty 
-                        || filter_form.controls['countryName'].touched)">
-                            Max length is 15 chars
-                    </span>
-                    <span class="text-danger" *ngIf="filter_form.controls['countryName'].hasError('pattern') 
-                        && (filter_form.controls['countryName'].dirty 
-                        || filter_form.controls['countryName'].touched)">
-                            Please enter valid filter query
-                    </span>
+        <div class="row mt-3"> 
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-3">                
+                        <div class="form-group">                    
+                            <input type="search" class="form-control" placeholder="Filter by name" 
+                                formControlName="countryName"                        
+                                (keyup)="filterByName(filter_form.get('countryName')?.value)"
+                                [value]="filter_form.get('countryName')?.value"
+                                (search)="filterByName(filter_form.get('countryName')?.value)">                   
+                            <span class="text-danger" *ngIf="filter_form.controls['countryName'].hasError('maxlength') 
+                                && (filter_form.controls['countryName'].dirty 
+                                || filter_form.controls['countryName'].touched)">
+                                    Max length is 15 chars
+                            </span>
+                            <span class="text-danger" *ngIf="filter_form.controls['countryName'].hasError('pattern') 
+                                && (filter_form.controls['countryName'].dirty 
+                                || filter_form.controls['countryName'].touched)">
+                                    Please enter valid filter query
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">                    
+                            <input type="search" class="form-control" placeholder="Filter by region"
+                            formControlName="countryRegion"                    
+                            (keyup)="filterByRegion(filter_form.get('countryRegion')?.value)"
+                            [value]="filter_form.get('countryRegion')?.value"
+                            (search)="filterByRegion(filter_form.get('countryRegion')?.value)">
+                            <span class="text-danger" *ngIf="filter_form.controls['countryRegion'].hasError('maxlength') 
+                                && (filter_form.controls['countryRegion'].dirty 
+                                || filter_form.controls['countryRegion'].touched)">
+                                    Max length is 15 chars
+                            </span>
+                            <span class="text-danger" *ngIf="filter_form.controls['countryRegion'].hasError('pattern') 
+                                && (filter_form.controls['countryRegion'].dirty 
+                                || filter_form.controls['countryRegion'].touched)">
+                                    Please enter valid filter query
+                            </span>
+                        </div>    
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">                    
+                            <input type="search" class="form-control" placeholder="Filter by subregion"
+                            formControlName="countrySubRegion"                    
+                            (keyup)="filterBySubRegion(filter_form.get('countrySubRegion')?.value)"
+                            [value]="filter_form.get('countrySubRegion')?.value"
+                            (search)="filterBySubRegion(filter_form.get('countrySubRegion')?.value)">
+                            <span class="text-danger" *ngIf="filter_form.controls['countrySubRegion'].hasError('maxlength') 
+                                && (filter_form.controls['countrySubRegion'].dirty 
+                                || filter_form.controls['countrySubRegion'].touched)">
+                                    Max length is 15 chars
+                            </span>
+                            <span class="text-danger" *ngIf="filter_form.controls['countrySubRegion'].hasError('pattern') 
+                                && (filter_form.controls['countrySubRegion'].dirty 
+                                || filter_form.controls['countrySubRegion'].touched)">
+                                    Please enter valid filter query
+                            </span>
+                        </div>    
+                    </div>   
+                    <div class="col-3">
+                        <div class="form-group">                    
+                            <input type="search" class="form-control" placeholder="Filter by continent"
+                            formControlName="countryContinent"                    
+                            (keyup)="filterByContinent(filter_form.get('countryContinent')?.value)"
+                            [value]="filter_form.get('countryContinent')?.value"
+                            (search)="filterByContinent(filter_form.get('countryContinent')?.value)">
+                            <span class="text-danger" *ngIf="filter_form.controls['countryContinent'].hasError('maxlength') 
+                                && (filter_form.controls['countryContinent'].dirty 
+                                || filter_form.controls['countryContinent'].touched)">
+                                    Max length is 15 chars
+                            </span>
+                            <span class="text-danger" *ngIf="filter_form.controls['countryContinent'].hasError('pattern') 
+                                && (filter_form.controls['countryContinent'].dirty 
+                                || filter_form.controls['countryContinent'].touched)">
+                                    Please enter valid filter query
+                            </span>
+                        </div>    
+                    </div> 
                 </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group">                    
-                    <input type="search" class="form-control" placeholder="Filter by region"
-                    formControlName="countryRegion"                    
-                    (keyup)="filterByRegion(filter_form.get('countryRegion')?.value)"
-                    [value]="filter_form.get('countryRegion')?.value"
-                    (search)="filterByRegion(filter_form.get('countryRegion')?.value)">
-                    <span class="text-danger" *ngIf="filter_form.controls['countryRegion'].hasError('maxlength') 
-                        && (filter_form.controls['countryRegion'].dirty 
-                        || filter_form.controls['countryRegion'].touched)">
-                            Max length is 15 chars
-                    </span>
-                    <span class="text-danger" *ngIf="filter_form.controls['countryRegion'].hasError('pattern') 
-                        && (filter_form.controls['countryRegion'].dirty 
-                        || filter_form.controls['countryRegion'].touched)">
-                            Please enter valid filter query
-                    </span>
-                </div>    
-            </div>
-            <div class="col-3">
-                <div class="form-group">                    
-                    <input type="search" class="form-control" placeholder="Filter by subregion"
-                    formControlName="countrySubRegion"                    
-                    (keyup)="filterBySubRegion(filter_form.get('countrySubRegion')?.value)"
-                    [value]="filter_form.get('countrySubRegion')?.value"
-                    (search)="filterBySubRegion(filter_form.get('countrySubRegion')?.value)">
-                    <span class="text-danger" *ngIf="filter_form.controls['countrySubRegion'].hasError('maxlength') 
-                        && (filter_form.controls['countrySubRegion'].dirty 
-                        || filter_form.controls['countrySubRegion'].touched)">
-                            Max length is 15 chars
-                    </span>
-                    <span class="text-danger" *ngIf="filter_form.controls['countrySubRegion'].hasError('pattern') 
-                        && (filter_form.controls['countrySubRegion'].dirty 
-                        || filter_form.controls['countrySubRegion'].touched)">
-                            Please enter valid filter query
-                    </span>
-                </div>    
-            </div>   
-            <div class="col-3">
-                <div class="form-group">                    
-                    <input type="search" class="form-control" placeholder="Filter by Continent"
-                    formControlName="countryContinent"                    
-                    (keyup)="filterByContinent(filter_form.get('countryContinent')?.value)"
-                    [value]="filter_form.get('countryContinent')?.value"
-                    (search)="filterByContinent(filter_form.get('countryContinent')?.value)">
-                    <span class="text-danger" *ngIf="filter_form.controls['countryContinent'].hasError('maxlength') 
-                        && (filter_form.controls['countryContinent'].dirty 
-                        || filter_form.controls['countryContinent'].touched)">
-                            Max length is 15 chars
-                    </span>
-                    <span class="text-danger" *ngIf="filter_form.controls['countryContinent'].hasError('pattern') 
-                        && (filter_form.controls['countryContinent'].dirty 
-                        || filter_form.controls['countryContinent'].touched)">
-                            Please enter valid filter query
-                    </span>
-                </div>    
-            </div>            
+            </div>    
+            <div class="col-2">
+                <button class="btn btn-secondary text-nowrap w-100" (click)="clearAllFilters()">Clear all</button>
+            </div>       
+                       
         </div>       
     </div>
 </div>
@@ -89,11 +97,20 @@
                 <th scope="col">#</th>
                 <th scope="col">                
                     Name     
-                    <fa-icon (click)="sortByName()" [icon]="isAscending ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
+                    <fa-icon (click)="sortByName()" [icon]="isAscendingName ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
                 </th>
-                <th scope="col">Region</th>
-                <th scope="col">Subregion</th>
-                <th scope="col">Continent</th>
+                <th scope="col">
+                    Region
+                    <fa-icon (click)="sortByRegion()" [icon]="isAscendingRegion ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
+                </th>
+                <th scope="col">
+                    Subregion
+                    <fa-icon (click)="sortBySubRegion()" [icon]="isAscendingSubRegion ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
+                </th>
+                <th scope="col">
+                    Continent
+                    <fa-icon (click)="sortByContinent()" [icon]="isAscendingContinent ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
+                </th>
             </tr>
         </thead>
         <tbody *ngFor="let country of countries$ | async; let i = index">

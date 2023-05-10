@@ -23,11 +23,13 @@ export class CountriesComponent {
   faCaretUp = faCaretUp;
   faCaretDown = faCaretDown;
   faTimes = faTimes;
-  isAscending = true;
+  isAscendingName = true;
+  isAscendingRegion = true;
+  isAscendingSubRegion = true;
+  isAscendingContinent = true;
   
   constructor(
-    private countriesService: CountriesService, 
-    private activatedRoute: ActivatedRoute,
+    private countriesService: CountriesService,     
     private router: Router,
     private fb: FormBuilder){
 
@@ -71,24 +73,55 @@ export class CountriesComponent {
   ngOnInit(){   
     this.filterTermName = this.countriesService.lastNameTerm;  
     this.filterTermRegion = this.countriesService.lastRegionTerm;
-    this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion, this.filterTermSubRegion, this.filterTermContinent);  
-    
-  }
-
-  clearFilter(){
-
+    this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion, this.filterTermSubRegion, this.filterTermContinent);      
   }
 
   sortByName(){
 
-    if(this.isAscending){
+    if(this.isAscendingName){
       this.countriesService.sortByNameAscending();
     } else {
       this.countriesService.sortByNameDescending();
     }
     
     this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion, this.filterTermSubRegion, this.filterTermContinent);  
-    this.isAscending = this.countriesService.isAscending;
+    this.isAscendingName = this.countriesService.isAscendingName;
+  }
+
+  sortByRegion() {
+
+    if(this.isAscendingRegion){
+      this.countriesService.sortByRegionAscending();
+    } else {
+      this.countriesService.sortByRegionDescending();
+    }
+    
+    this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion, this.filterTermSubRegion, this.filterTermContinent);  
+    this.isAscendingRegion = this.countriesService.isAscendingRegion;
+  }
+
+  sortBySubRegion() {
+
+    if(this.isAscendingSubRegion){
+      this.countriesService.sortBySubRegionAscending();
+    } else {
+      this.countriesService.sortBySubRegionDescending();
+    }
+    
+    this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion, this.filterTermSubRegion, this.filterTermContinent);  
+    this.isAscendingSubRegion = this.countriesService.isAscendingSubRegion;
+  }
+
+  sortByContinent() {
+
+    if (this.isAscendingContinent) {
+      this.countriesService.sortByContinentAscending();
+    } else {
+      this.countriesService.sortByContinentDescending();
+    }
+    
+    this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion, this.filterTermSubRegion, this.filterTermContinent);  
+    this.isAscendingContinent = this.countriesService.isAscendingContinent;
   }
 
   filterByName(countryName: string): void {
@@ -112,8 +145,16 @@ export class CountriesComponent {
     this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion, this.filterTermSubRegion, this.filterTermContinent);   
   }
 
+  clearAllFilters(){
+    this.filterTermName = "";
+    this.filterTermRegion = "";
+    this.filterTermSubRegion = "";
+    this.filterTermContinent = "";
+    this.filter_form.reset();
+    this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion, this.filterTermSubRegion, this.filterTermContinent);       
+  }
 
   goToDetails(countryCode: string){
     this.router.navigate(['/countries', countryCode]);
-  }
+  } 
 }

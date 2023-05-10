@@ -18,7 +18,10 @@ export class CountriesService {
   lastRegionTerm: string = "";
   lastSubRegionTerm: string = "";
   lastContinentTerm: string = "";
-  isAscending = true;
+  isAscendingName = true;
+  isAscendingRegion = true;
+  isAscendingSubRegion = true;
+  isAscendingContinent = true;
 
   constructor(private http: HttpClient) { }
 
@@ -41,12 +44,42 @@ export class CountriesService {
 
   sortByNameAscending(): void {
     this.countries.sort((a, b) => a.name.common < b.name.common ? -1 : 1);
-    this.isAscending = false;    
+    this.isAscendingName = false;    
   }
 
   sortByNameDescending(): void {
     this.countries.sort((a, b) => a.name.common > b.name.common ? -1 : 1);
-    this.isAscending = true;    
+    this.isAscendingName = true;    
+  }
+
+  sortByRegionAscending(): void {
+    this.countries.sort((a, b) => a.region < b.region ? -1 : 1);
+    this.isAscendingRegion = false;    
+  }
+
+  sortByRegionDescending(): void {
+    this.countries.sort((a, b) => a.region > b.region ? -1 : 1);
+    this.isAscendingRegion = true;    
+  }
+
+  sortBySubRegionAscending(): void {
+    this.countries.sort((a, b) => a.subregion < b.subregion ? -1 : 1);
+    this.isAscendingSubRegion = false;    
+  }
+
+  sortBySubRegionDescending(): void {
+    this.countries.sort((a, b) => a.subregion > b.subregion ? -1 : 1);
+    this.isAscendingSubRegion = true;    
+  }
+
+  sortByContinentAscending(): void {
+    this.countries.sort((a, b) => a.continents[0] < b.continents[0] ? -1 : 1);
+    this.isAscendingContinent = false;    
+  }
+
+  sortByContinentDescending(): void {
+    this.countries.sort((a, b) => a.continents[0] > b.continents[0] ? -1 : 1);
+    this.isAscendingContinent = true;    
   }
 
   getCountriesBySearch(countryName: string, countryRegion: string, countrySubRegion: string, countryContinent: string): Observable<Country[]> {
@@ -124,7 +157,7 @@ export class CountriesService {
           googleMaps: country.maps.googleMaps,
           openStreetMaps: country.maps.openStreetMaps
         },
-        latlng: country.latling,
+        latlng: country.latlng,
         landlocked: country.landlocked,
         borders: country.borders,
         car: {
@@ -145,8 +178,7 @@ export class CountriesService {
         status: country.status,
         unMember: country.unMember,       
         fifa: country.fifa,
-        startOfWeek: country.startOfWeek,
-
+        startOfWeek: country.startOfWeek
       };
     });
    
