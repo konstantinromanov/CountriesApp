@@ -14,8 +14,10 @@ export class CountriesService {
   apiUrlByName = "https://restcountries.com/v3.1/name/";
   
   countries!: Country[];
-  lastSearchTerm: string = "";
+  lastNameTerm: string = "";
   lastRegionTerm: string = "";
+  lastSubRegionTerm: string = "";
+  lastContinentTerm: string = "";
   isAscending = true;
 
   constructor(private http: HttpClient) { }
@@ -47,16 +49,20 @@ export class CountriesService {
     this.isAscending = true;    
   }
 
-  getCountriesBySearch(countryName: string, countryRegion: string): Observable<Country[]> {
+  getCountriesBySearch(countryName: string, countryRegion: string, countrySubRegion: string, countryContinent: string): Observable<Country[]> {
     
-    this.lastSearchTerm = countryName.trim().toLowerCase();
+    this.lastNameTerm = countryName.trim().toLowerCase();
     this.lastRegionTerm = countryRegion.trim().toLowerCase();
-
+    this.lastSubRegionTerm = countrySubRegion.toLowerCase().trim();
+    this.lastContinentTerm = countryContinent.toLowerCase().trim();
+    
     const result = this.getCountries().pipe(
-      map(countries => countries.filter(country =>
-        (country.name.common.toLowerCase().includes(this.lastSearchTerm)
-        || country.name.official.toLowerCase().includes(this.lastSearchTerm))
+      map(countries => countries.filter(country => 
+        (country.name.common.toLowerCase().includes(this.lastNameTerm)
+        || country.name.official.toLowerCase().includes(this.lastNameTerm))
         && country.region.toLowerCase().includes(this.lastRegionTerm)
+        && (country.subregion ?? '').toLowerCase().includes(this.lastSubRegionTerm) 
+        && country.continents.some(c => c.toLowerCase().includes(this.lastContinentTerm))       
       ))
     );
 
