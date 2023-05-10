@@ -11,7 +11,6 @@ import { CountryDetailsComponent } from './country-details/country-details.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-// import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [

@@ -50,11 +50,11 @@ export class CountryDetailsComponent {
   }
 
   handleIddClick() {
+    
     this.country$.subscribe(country => {
       const suffixes = country.idd.suffixes.join(", ");
       const message = `root: ${country.idd.root}\n suffixes: ${suffixes}`;
       alert(message);
     });
   }
-  
 }

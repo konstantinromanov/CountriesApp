@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Country, Currencies, Currency, Language } from './models/country.model';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Country, Currencies, Language } from './models/country.model';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

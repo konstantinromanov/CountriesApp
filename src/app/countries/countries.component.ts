@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CountriesService } from '../countries.service';
 import { Observable } from 'rxjs';
 import { Country } from '../models/country.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faCoffee, faCaretUp, faCaretDown, faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,7 +13,7 @@ import { faCoffee, faCaretUp, faCaretDown, faTimes } from '@fortawesome/free-sol
 })
 export class CountriesComponent {
 
-  filterTermName!: string;
+  filterTermName: string = "";
   filterTermRegion: string = "";
   filterTermSubRegion: string = "";
   filterTermContinent: string = "";
@@ -71,8 +71,11 @@ export class CountriesComponent {
     }
 
   ngOnInit(){   
+
     this.filterTermName = this.countriesService.lastNameTerm;  
     this.filterTermRegion = this.countriesService.lastRegionTerm;
+    this.filterTermSubRegion = this.countriesService.lastSubRegionTerm;
+    this.filterTermContinent = this.countriesService.lastContinentTerm;
     this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion, this.filterTermSubRegion, this.filterTermContinent);      
   }
 
