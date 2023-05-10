@@ -3,7 +3,7 @@
 <div *ngIf="country$ | async as country">
 
     <div class="container">
-        <h1 class="mb-3">{{ country.name.common }}</h1>
+        <h1 class="my-3">{{ country.name.common }}</h1>
         <div class="row">
             <div class="col-md-6 col-lg-3">
                 <dl>
@@ -109,7 +109,7 @@
                     </dd>
                 </dl>
             </div>
-            <div class="col-md-12 col-lg-6 mt-3 text-center">
+            <div class="col-md-12 col-lg-6 text-center">
                 <img class="shadow" [src]="country.flags.png" alt="{{ country.flags.alt == '' ? country.name.common : country.flags.alt }} Flag">
             </div>
         </div>
