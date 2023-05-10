@@ -19,7 +19,7 @@
                             <span class="text-danger" *ngIf="filter_form.controls['countryName'].hasError('pattern') 
                                 && (filter_form.controls['countryName'].dirty 
                                 || filter_form.controls['countryName'].touched)">
-                                    Please enter valid filter query
+                                Letters only
                             </span>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                             <span class="text-danger" *ngIf="filter_form.controls['countryRegion'].hasError('pattern') 
                                 && (filter_form.controls['countryRegion'].dirty 
                                 || filter_form.controls['countryRegion'].touched)">
-                                    Please enter valid filter query
+                                Letters only
                             </span>
                         </div>    
                     </div>
@@ -57,7 +57,7 @@
                             <span class="text-danger" *ngIf="filter_form.controls['countrySubRegion'].hasError('pattern') 
                                 && (filter_form.controls['countrySubRegion'].dirty 
                                 || filter_form.controls['countrySubRegion'].touched)">
-                                    Please enter valid filter query
+                                Letters only
                             </span>
                         </div>    
                     </div>   
@@ -76,7 +76,7 @@
                             <span class="text-danger" *ngIf="filter_form.controls['countryContinent'].hasError('pattern') 
                                 && (filter_form.controls['countryContinent'].dirty 
                                 || filter_form.controls['countryContinent'].touched)">
-                                    Please enter valid filter query
+                                    Letters only
                             </span>
                         </div>    
                     </div> 
@@ -84,8 +84,7 @@
             </div>    
             <div class="col-2">
                 <button class="btn btn-secondary text-nowrap w-100" (click)="clearAllFilters()">Clear all</button>
-            </div>       
-                       
+            </div>
         </div>       
     </div>
 </div>
