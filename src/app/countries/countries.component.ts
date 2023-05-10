@@ -63,19 +63,20 @@ export class CountriesComponent {
             ])
         ],       
       });
-
-      this.filter_form.get('countryName')?.setValue(this.countriesService.lastNameTerm);
-      this.filter_form.get('countryRegion')?.setValue(this.countriesService.lastRegionTerm);
-      this.filter_form.get('countrySubRegion')?.setValue(this.countriesService.lastSubRegionTerm);
-      this.filter_form.get('countryContinent')?.setValue(this.countriesService.lastContinentTerm);
     }
 
   ngOnInit(){   
+
+    this.filter_form.get('countryName')?.setValue(this.countriesService.lastNameTerm);
+    this.filter_form.get('countryRegion')?.setValue(this.countriesService.lastRegionTerm);
+    this.filter_form.get('countrySubRegion')?.setValue(this.countriesService.lastSubRegionTerm);
+    this.filter_form.get('countryContinent')?.setValue(this.countriesService.lastContinentTerm);
 
     this.filterTermName = this.countriesService.lastNameTerm;  
     this.filterTermRegion = this.countriesService.lastRegionTerm;
     this.filterTermSubRegion = this.countriesService.lastSubRegionTerm;
     this.filterTermContinent = this.countriesService.lastContinentTerm;
+    
     this.countries$ = this.countriesService.getCountriesBySearch(this.filterTermName, this.filterTermRegion, this.filterTermSubRegion, this.filterTermContinent);      
   }
 

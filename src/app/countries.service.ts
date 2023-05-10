@@ -86,8 +86,8 @@ export class CountriesService {
     
     this.lastNameTerm = countryName.trim().toLowerCase();
     this.lastRegionTerm = countryRegion.trim().toLowerCase();
-    this.lastSubRegionTerm = countrySubRegion.toLowerCase().trim();
-    this.lastContinentTerm = countryContinent.toLowerCase().trim();
+    this.lastSubRegionTerm = countrySubRegion.trim().toLowerCase();
+    this.lastContinentTerm = countryContinent.trim().toLowerCase();
     
     const result = this.getCountries().pipe(
       map(countries => countries.filter(country => 
