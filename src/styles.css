@@ -22,3 +22,7 @@
   a.front-page:hover {
     color:black !important;
   }
+
+  .suffixes a:hover {
+      cursor: pointer !important;
+  }

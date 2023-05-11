@@ -45,43 +45,57 @@
                     <dt>Currencies:</dt>
                     <dd>
                         {{ currenciesToString(country.currencies) }}                        
-                    </dd>
-                           
-                </dl>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <dl>
-                           
+                    </dd>                           
+                   
                     <dt>CCA2:</dt>
                     <dd>
                         {{ country.cca2 }}                        
                     </dd>
 
-                    <dt>Country Domain Registration:</dt>
+                    <dt>Domain Registration:</dt>
                     <dd>
                         {{ country.tld.join(", ") }}                        
                     </dd>
+                </dl>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <dl>
+                           
+                    <dt>Independent:</dt>
+                    <dd>
+                        {{ country.independent ? "Yes" : "No" }}                        
+                    </dd>
 
+                    <dt>UN member:</dt>
+                    <dd>
+                        {{ country.unMember ? "Yes" : "No" }}                        
+                    </dd>
+
+                    <dt>Status:</dt>
+                    <dd>
+                        {{ country.status }}                        
+                    </dd>
+                    
                     <dt>Car Information:</dt>
                     <dd>
-                        signs: {{ country.car.signs.join(", ") }} 
+                        signs: {{ country.car.signs ? country.car.signs.join(", ") : "" }} 
                         <br>
-                        side: {{ country.car.side === "right" ? "right-hand" : "left-hand" }}                    
+                        side: {{ country.car.side && country.car.side === "right" ? "right-hand" : "left-hand" }}                    
                     </dd>
                     
                     <dt>Borders:</dt>
                     <dd>
-                        {{ country.borders != undefined ? country.borders.join(", ") : "No borders" }}                       
+                        {{ country.borders ? country.borders.join(", ") : "No borders" }}                       
                     </dd>
 
                     <dt>International Direct Dialing:</dt>
                     <dd class="text-wrap text-break">
-                        root: 
+                        root:
                         {{ country.idd.root }}
                         <br>
                         suffixes: 
-                        <span class="suffixes" (click)="handleIddClick()" *ngIf="country.idd.suffixes.length >5">
-                            {{ country.idd.suffixes.slice(0,5).join(", ") }}, <a>...</a>
+                        <span class="suffixes" *ngIf="country.idd.suffixes.length >5">
+                            {{ country.idd.suffixes.slice(0,5).join(", ") }}, <a (click)="handleIddClick()">...</a>
                         </span>
                         <span *ngIf="country.idd.suffixes.length <=5">
                             {{ country.idd.suffixes.join(", ") }}
@@ -110,7 +124,7 @@
                 </dl>
             </div>
             <div class="col-md-12 col-lg-6 text-center">
-                <img class="shadow" [src]="country.flags.png" alt="{{ country.flags.alt == '' ? country.name.common : country.flags.alt }} Flag">
+                <img class="shadow mb-5" [src]="country.flags.png" alt="{{ country.flags.alt == '' ? country.name.common : country.flags.alt }} Flag">
             </div>
         </div>
     </div>    
