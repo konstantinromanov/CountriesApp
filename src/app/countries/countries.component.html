@@ -95,21 +95,29 @@
             <thead class="">
                 <tr class="">
                     <th scope="col">#</th>
-                    <th scope="col">                
-                        Name     
-                        <fa-icon (click)="sortByName()" [icon]="isAscendingName ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
+                    <th scope="col">  
+                        <div class="d-flex align-items-center">
+                            <span>Name</span>
+                            <fa-icon (click)="sortByName()" [icon]="isAscendingName ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
+                        </div> 
                     </th>
                     <th scope="col">
-                        Region
-                        <fa-icon (click)="sortByRegion()" [icon]="isAscendingRegion ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
+                        <div class="d-flex align-items-center">
+                            <span>Region</span>
+                            <fa-icon (click)="sortByRegion()" [icon]="isAscendingRegion ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
+                        </div>
                     </th>
                     <th scope="col">
-                        Subregion
-                        <fa-icon (click)="sortBySubRegion()" [icon]="isAscendingSubRegion ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
+                        <div class="d-flex align-items-center">
+                            <span>Subregion</span>
+                            <fa-icon (click)="sortBySubRegion()" [icon]="isAscendingSubRegion ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
+                        </div>
                     </th>
                     <th scope="col">
-                        Continent
-                        <fa-icon (click)="sortByContinent()" [icon]="isAscendingContinent ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
+                        <div class="d-flex align-items-center">
+                            <span>Continent</span>
+                            <fa-icon (click)="sortByContinent()" [icon]="isAscendingContinent ? faCaretUp : faCaretDown" class="d-inline-block px-3"></fa-icon>   
+                        </div>
                     </th>
                 </tr>
             </thead>
